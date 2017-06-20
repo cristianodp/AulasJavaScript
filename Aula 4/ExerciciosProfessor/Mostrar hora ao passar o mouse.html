@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<script>
+		function mostrarHora(){
+			var hora = new Date();
+			document.getElementById('horas').innerHTML = hora.getHours() + ':' + hora.getMinutes() + ':' + hora.getSeconds();
+		}
+		function limparHoras(){
+			document.getElementById('horas').innerHTML = '';
+		}
+		</script>
+		<style>
+			div {
+				border: 1px solid blue;
+				width: 150px;
+				height: 150px;
+			}
+		</style>
+	</head>
+	<body>
+		<div onmouseover="mostrarHora()" onmouseout="limparHoras();">Ver as horas</div>
+		<div id="horas"></div>
+	</body>
+</html>

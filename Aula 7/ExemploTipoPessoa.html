@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+		  
+		  $("[name='tipo-pessoa']").click(function(){
+			
+			var tipo = $(this).val();
+			
+			if(tipo === 'F'){      
+			  $('#documento').attr('title', 'Informe um CPF.');
+			  $('#tipo').html('CPF');      
+			}
+			
+			if(tipo === 'J'){      
+			  $('#documento').attr('title', 'Informe um CNPJ.');
+			  $('#tipo').html('CNPJ');      
+			}
+			
+		  });
+		  
+		});
+	</script>
+	
+	<meta charset="utf-8">
+    <style>
+	label {
+	  display: block;
+	}
+	</style>
+	<title>Cadastro de Pessoas</title>
+</head>
+
+
+  <meta charset="utf-8">
+  <title>Cadastro de Pessoas</title>
+</head>
+<body>
+  <label for="tipo-pessoa">Tipo de Pessoa</label>
+  <input type="radio" name="tipo-pessoa" value="F">Física
+  <input type="radio" name="tipo-pessoa" value="J">Jurídica
+  <label for="documento">Documento <span id="tipo"></span></label>
+  <input type="text" id="documento" title="Escolha o tipo de pessoa">
+</body>
+</html>

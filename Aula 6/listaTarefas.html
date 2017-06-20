@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2015 by diegokeller (http://jsbin.com/foseka/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>Lista de Tarefas</title>
+<style id="jsbin-css">
+body{
+  font-family: Tahoma;
+  font-size: 12px;
+}
+
+fieldset{
+  margin: 10px;
+  border: 1px solid silver;
+}
+
+h1{
+  text-transform: uppercase;
+  background-color: black;
+  padding: 5px;
+  color: white;
+}
+
+.concluida{
+  color: green;
+  text-decoration: line-through;
+}
+
+.importante {
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>Lista de Tarefas</h1>
+  <fieldset>
+    <legend>Incluir</legend>
+    <input type="text" id="nome">
+    <input type="checkbox" id="importante">
+    <input type="button" id="ok" value="OK">
+  </fieldset>
+  <fieldset>
+    <legend>Tarefas</legend>
+    <input type="text" id="pesquisa">
+    <input type="button" id="concluir" value="Concluir">
+    <input type="button" id="excluir" value="Excluir">
+    <ol id="tarefas">
+      <li class="importante">
+        <input type="checkbox">
+        Tarefa 1
+      <li class="concluida">
+        <input type="checkbox">
+        Tarefa 2
+      <li class="concluida importante">
+        <input type="checkbox">
+        Tarefa 3
+    </ol>
+  </fieldset>
+<script id="jsbin-javascript">
+$(function(){
+  
+  // Incluir
+  $('#ok').click(function(){
+    var tarefa = $('#nome').val();
+    var importante = $('#importante').prop('checked');
+    var tarefas = $('#tarefas');
+    var item = '<li>';
+    if(importante === true){
+      item = '<li class="importante">';
+    }
+    tarefas.append(item + '<input type="checkbox">' + tarefa);
+    $('#nome').val('');
+    $('#importante').prop('checked', false);
+  });
+  
+  // Excluir
+  $('#excluir').click(function(){
+    var selecionados = $('#tarefas :checked');
+    for(i = 0; i < selecionados.length; i++){
+      $(selecionados[i]).parent().remove();
+    }
+  });
+  
+  // Concluir
+  $('#concluir').click(function(){
+    $('#tarefas :checked').parent().toggleClass('concluida');    
+  });
+  
+  // Pesquisa
+  $('#pesquisa').keyup(function(){
+    var termo = $(this).val();
+    $("#tarefas li").css('display', 'none');
+    $("#tarefas li:contains(" + termo + ")").css('display', 'block');
+  });
+  
+});
+</script>
+</body>
+</html>

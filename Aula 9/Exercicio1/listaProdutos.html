@@ -1,0 +1,86 @@
+<h2>Lista de Produtos</h2>
+
+<table id="lista" class="table" data-inicio="0" data-qtde="5">
+	<thead>
+		<th>Id</th>
+		<th>Nome</th>
+		<th>Preço</th>
+	</thead>
+	<tbody>
+
+    </tbody>
+</table>
+<button type="button" class="btn btn-default"
+  id="anterior"><</button>
+<button type="button" class="btn btn-default"
+  id="proximo">></button>
+<script>
+
+
+	$(function(){
+
+		function carrega()
+		{
+			//$("#lista tbody").empty();
+			$.getJSON("http://dkeller.comuf.com/cursojs/listarProdutos.php"
+			         ,{inicio:$("#lista").data('inicio'), quantidade:$("#lista").data('qtde')}
+					 , function(data){
+										// Monta Grid
+										$("#lista tbody").empty();
+										for(i=0;i<data.length;i++){
+										  $('#lista tbody').append('<tr> \
+											  <td>' + data[i].id + '</td> \
+											  <td>' + data[i].nome + '</td> \
+											  <td>' + data[i].preco + '</td> \
+											</tr>');
+										}
+									  }
+			         );
+		}
+
+
+		// Listar produtos
+		carrega();
+
+
+		/*
+		$.getJSON(
+		//'listarProdutos.json',
+		"http://dkeller.comuf.com/cursojs/listarProdutos.php",
+        function(data){
+
+			// Monta Grid
+			for(i=0;i<data.length;i++){
+			  $('#lista tbody').append('<tr> \
+				  <td>' + data[i].id + '</td> \
+				  <td>' + data[i].nome + '</td> \
+				  <td>' + data[i].preco + '</td> \
+				</tr>');
+			}
+
+		});
+		*/
+
+		//pega botoes
+
+		$("#proximo").click(function(){
+			var inicio = $("#lista").data('inicio');
+			var qtde   = $("#lista").data('qtde');
+			inicio += qtde;
+			$("#lista").data('inicio',inicio);
+			carrega();
+
+		});
+
+		$("#anterior").click(function(){
+			var inicio = $("#lista").data('inicio');
+			var qtde   = $("#lista").data('qtde');
+			inicio -= qtde;
+			$("#lista").data('inicio',inicio);
+			carrega();
+		});
+
+
+
+	});
+</script>

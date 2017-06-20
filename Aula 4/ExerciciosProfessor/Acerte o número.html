@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<script>
+		var numero = parseInt(Math.random() * 100);
+		var chute = -1;
+		var tentativas = 7;
+		while(true){
+			chute = parseInt(window.prompt('Chute um número entre 0 e 100!'));
+			if (chute == numero) {
+				alert('Acertou!!!!!');
+				break;
+			}
+			if (tentativas == 0) {
+				alert('Desista!!!!! Você perdeu.');
+				break;
+			}
+			tentativas--;
+			if (chute > numero) {
+				alert('É menor do que ' + chute);
+				continue;
+			}
+			if (chute < numero) {
+				alert('É maior do que ' + chute);
+				continue;
+			}
+			
+		}
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

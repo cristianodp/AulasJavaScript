@@ -1,0 +1,23 @@
+<html>
+	<head>
+	<meta charset="UTF-8"></meta>
+	<script>
+	function abrir(){
+		var altura = 500;
+		var largura = 500;
+		
+		var x = (window.screen.width - largura) / 2;
+		var y = (window.screen.height - altura) / 2;
+		
+		var janela = window.open(
+			'http://www.google.com.br', 
+			'',
+			'width=' + largura + ',height=' + altura);
+		janela.moveTo(x,y);
+	}
+	</script>
+	</head>
+	<body>
+		<button onclick="abrir()">Abrir</button>
+	</body>
+</html>

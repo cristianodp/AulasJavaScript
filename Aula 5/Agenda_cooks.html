@@ -1,0 +1,401 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2015 by cristianodp (http://jsbin.com/bajije/23/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="Contatos">
+  <meta charset="UTF-8">
+  
+  <!------------------------------------>
+  <!--Referências a recursos externos-->
+  <!------------------------------------>
+  
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  
+  <!--Icones Font Awesome-->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+<style id="jsbin-css">
+.amarelo {
+  color: #008000;  
+  cursor: pointer;
+}
+
+.cinza {
+  color: #C0C0C0;
+  cursor: pointer;
+}
+
+.deletar{
+  cursor: pointer;
+  color: #FF0000;
+}
+
+.editar{
+  cursor: pointer;
+  color: blue;
+}
+
+
+</style>
+</head>
+<body onload="">
+  
+  <!------------------------------------>
+  <!--Título-->
+  <!------------------------------------>
+  <h1>AGENDA DE CONTATOS</h1>
+  
+  <!------------------------------------>
+  <!--Listagem-->
+  <!------------------------------------>  
+  <fieldset id="listagem">
+    
+    <!--Título-->
+    <legend>Lista de Contatos</legend>
+    
+    <!--Formulário de Pesquisa-->
+    <p>
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="pesquisa_nome">Nome</label>
+          <input class="form-control" type="text" id="pesquisa_nome">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="pesquisa_favorito" class="">Apenas favoritos
+          </label>
+        </div>      
+      </div>
+    </p>    
+  
+    <!--Botões de Pesquisa-->
+    <p>      
+      <button class="btn btn-default" onclick="controlador.pesquisar()">Pesquisar</button>
+      <button class="btn btn-primary" onclick="controlador.novo()">Novo</button>  
+    </p>
+  
+    <!--Listagem de Registros-->
+    <table class="table table-bordered" id="tabela">
+    </table>
+  </fieldset>
+  
+  <!------------------------------------>
+  <!--Edição-->
+  <!------------------------------------>  
+  <div id="edicao" style="display: none">  
+    <fieldset>
+      
+      <!--Título-->
+      <legend>Cadastro de Contato</legend>
+      
+      <!--Formulário-->
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input class="form-control" type="text" id="nome">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="favorito" class="">Favorito
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone:</label>
+          <input class="form-control" type="text" id="telefone">
+        </div>
+        
+        <!--Botões-->
+        <button class="btn btn-primary" onclick="controlador.salvar()">Salvar</button>
+        <button class="btn btn-default" onclick="controlador.voltar()">Voltar</button>
+      </div>
+    </fieldset> 
+  </div>
+  
+<script id="jsbin-javascript">
+// ==============================================================
+// Modelo de Contato
+// ==============================================================
+function Contato(nome, favorito, telefone) {
+
+  // Inicialização
+  this.nome = nome;
+  this.favorito = favorito;
+  this.telefone = telefone;
+
+  // Converte um contato em uma string
+  // -----------------------------------------------------------
+  this.toString = function() {    
+    return this.nome +
+      ',' + this.favorito +
+      ',' + this.telefone;
+  };
+
+  // Carrega um contato a partir de uma string
+  // -----------------------------------------------------------
+  this.fromString = function(sContato) {
+    var vContato = sContato.split(',');
+    this.nome = vContato[0];
+    this.favorito = vContato[1] === 'true' ? true : false;
+    this.telefone = vContato[2];
+  };
+}
+
+// ==============================================================
+// Testes
+// ==============================================================
+
+/*
+var joao = new Contato('João', true, '545454');
+alert(joao.toString());
+joao.fromString('João da Silva,false,4547897');
+alert(joao.nome);
+alert(joao.favorito);
+alert(joao.telefone);
+*/
+
+// ==============================================================
+// Persistência
+// ==============================================================
+
+function Persistencia() {
+
+  this.separador = '#';
+  
+  // Salva um cookie
+  // -----------------------------------------------------------
+  this.setCookie = function(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+  };
+  // Obtém um cookie
+  // -----------------------------------------------------------
+  this.getCookie = function(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1);
+      if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+    }
+    return "";
+  };  
+  
+  this.salvar = function(contatos){    
+    this.setCookie('contatos', contatos.join(this.separador), 100);
+  };
+  
+  this.buscar = function(){
+    var sContatos = this.getCookie('contatos');
+    var vContatos;
+    if (sContatos.indexOf(this.separador) >= 0) {
+      vContatos = sContatos.split(this.separador);  
+    } else {
+      vContatos = [sContatos];
+    }
+    var listaContatos = [];
+    for(i = 0; i < vContatos.length; i++){
+      var contato = new Contato();
+      contato.fromString(vContatos[i]);
+      listaContatos.push(contato);
+    }
+    return listaContatos;
+  };
+}
+
+// ==============================================================
+// Testes
+// ==============================================================
+/*
+var p = new Persistencia();
+p.setCookie('nome', 'FTEC', 100);
+alert(p.getCookie('nome'));
+
+var contatos = [];
+contatos.push(new Contato('Maria', true, '123'));
+contatos.push(new Contato('João', false, '456'));
+p.salvar(contatos);
+var busca = p.buscar();
+for(i = 0; i < busca.length; i++){
+  alert(busca[i].toString());
+}
+*/
+
+
+
+
+
+
+
+function Controlador() {
+  
+  this.persistencia = new Persistencia();
+  
+  // Novo contato 
+  // -----------------------------------------------------------
+  this.novo = function(){
+    document.getElementById('listagem').style.display = 'none';
+    document.getElementById('edicao').style.display = 'block';
+    
+    document.getElementById('nome').value = '';
+    document.getElementById('favorito').checked = false;
+    document.getElementById('telefone').value = '';
+    
+    document.getElementById('nome').focus();
+  };
+  
+  // Voltar para pesquisa
+  // -----------------------------------------------------------
+  this.voltar = function(){
+    document.getElementById('listagem').style.display = 'block';
+    document.getElementById('edicao').style.display = 'none';
+  };
+  
+  // Pesquisar contatos
+  // -----------------------------------------------------------
+  this.pesquisar = function(){
+    
+    var tabela = document.getElementById('tabela');
+    var contatos = this.persistencia.buscar();
+    var nome = document.getElementById('pesquisa_nome').value;
+    var favorito = document.getElementById('pesquisa_favorito').checked;
+    
+    // Inicializa cabeçalho
+    tabela.innerHTML = '<tr><th>Nome</th>' + 
+      '<th>Telefone</th>' + 
+      '<th>Favorito</th>' + 
+      '<th>Ações</th></tr>';  
+    
+    contatos.sort();
+    
+    // Percorre os contatos
+    for (i = 0; i < contatos.length; i++) {
+      
+      // Pesquisa pelo nome
+      if (nome && contatos[i].nome.valueOf().indexOf(nome) < 0) {
+        continue;
+      }
+      
+      // Pesquisa pelo favorito
+      if (favorito && !contatos[i].favorito) {
+        continue;
+      }
+      
+      tabela.innerHTML += 
+        '<tr>' + 
+        '<td>' + contatos[i].nome + '</td>' + 
+        '<td>' + contatos[i].telefone + '</td>' + 
+        '<td>' + (contatos[i].favorito ? 'Sim' : 'Não') + '</td>' + 
+        '<td><a href="#" ' + 
+        'onclick="controlador.excluir(\'' + contatos[i].nome + '\',1)">' + 
+        'Excluir</a>'+
+        ' <a href="#" ' + 
+        'onclick="controlador.editar(\'' + contatos[i].nome + '\')">' + 
+        'Editar</a></td>' + 
+        '</tr>';
+    }
+  };
+  
+  // Salvar novo contato
+  // -----------------------------------------------------------
+  this.salvar = function(){
+    
+    // Pega os campos
+    var nome = document.getElementById('nome').value;
+    var favorito = document.getElementById('favorito').checked;
+    var telefone = document.getElementById('telefone').value;
+    
+    // Cria o contato
+    var contato = new Contato(nome, favorito, telefone);
+    
+    // Busca os contatos
+    var contatos = this.persistencia.buscar();
+    
+    // Adiciona o novo contato
+    contatos.push(contato);
+    
+    // Salva o contato
+    this.persistencia.salvar(contatos);
+    
+    // Volta para a pesquisa
+    this.voltar();
+    
+    // Atualiza a listagem
+    this.pesquisar();
+    
+  };
+ 
+  // Excluir
+  // -----------------------------------------------------------
+  this.excluir = function(nome,Forca){
+    
+    if (Forca == 1){
+      if (!confirm('Tem certeza que deseja excluir ' + nome + '?')) {
+        return;
+      } 
+    }
+    // Busca todos
+    var contatos = this.persistencia.buscar();
+    
+    // Encontra o contato
+    for (i = 0; i < contatos.length; i++) {
+      if (contatos[i].nome.valueOf() == nome.valueOf()) {
+        // Remove
+        contatos.splice(i, 1);
+        break;
+      }
+    }
+    
+    // Salva e atualiza a lista
+    this.persistencia.salvar(contatos);
+    this.pesquisar();
+  };
+  
+  // Editar
+  // -----------------------------------------------------------
+  this.editar = function(nome){
+    
+    // Busca todos
+    var contatos = this.persistencia.buscar();
+    
+    // Encontra o contato
+    for (i = 0; i < contatos.length; i++) {
+      if (contatos[i].nome.valueOf() == nome.valueOf()) {
+        // Remove
+        ednome     = contatos[i].nome;
+        edfavorito = contatos[i].favorito;
+        edtelefone = contatos[i].telefone;
+        
+        break;
+      }
+    }
+    
+    //excluir o atual
+    this.excluir(nome,0);
+    
+    // chama novo 
+    this.novo();
+    
+    document.getElementById('nome').value = ednome;
+    document.getElementById('favorito').checked = edfavorito;
+    document.getElementById('telefone').value = edtelefone;
+    
+
+  };
+  
+}
+
+// Controlador da página
+var controlador = new Controlador();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title>JavaScript Aula 4 - TrinoPolo </title>  
+		<meta charset="UTF-8">		
+		
+		<script>
+			var clock = window.setInterval (function(){
+							hora = document.getElementById('hora');
+							hora.innerHTML = new Date();
+						},1000);
+		    function paraClock()
+			{	
+				window.clearInterval(clock);
+			}			
+	</script>
+	</head>
+		<body>
+			<div id="hora">
+			</div>
+			<button onclick="paraClock()">Parar</button>
+			
+		</body>
+	
+</html>

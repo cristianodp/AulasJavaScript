@@ -1,0 +1,143 @@
+<html>
+	<head>
+		<title>JavaScript Aula 4 - TrinoPolo </title>  
+		<meta charset="UTF-8">		
+		
+		<script>
+		var janela = null;
+		function log(texto){
+			var log = document.getElementById('log');
+			texto += '<hr />' + log.innerHTML;
+			log.innerHTML = texto;
+		}
+		
+		function executar(){
+			log(window);
+			log(window.document);
+			log('Largura: ' + window.innerWidth);
+			log('Altura: ' + window.innerHeight);
+			window.onresize = function(){
+				log('Largura: ' + window.innerWidth);
+				log('Altura: ' + window.innerHeight);
+			};
+			log('Tela: ' + window.screen.width + 
+				' | ' + window.screen.height);
+		}
+		
+		
+		function garregaEventos()
+		{   //bt excluir
+			btexcluir = document.getElementById('btexcluir');
+			
+			btexcluir.onclick = function(){
+				var resp = window.confirm("Deseja exluir?");
+				log("Resposta "+resp);
+			}
+		   //bt abrir
+			btAbrir = document.getElementById('btAbrir');
+			
+			btAbrir.onclick = function(){
+				var url    = "www.terra.com.br";
+				var opcoes = "width=400px,height=400px";
+				janela     = window.open(url,'',opcoes);
+			}
+			
+			//btFecharAberta
+			btFecharAberta = document.getElementById('btFecharAberta');
+			
+			btFecharAberta.onclick = function(){
+				janela.close();
+			}
+			
+			//btRedimencAberta
+			btRedimencAberta = document.getElementById('btRedimencAberta');
+			
+			btRedimencAberta.onclick = function(){
+				janela.resizeTo('300','300');
+			}
+			
+			btFecharAberta.onclick = function(){
+				janela.close();
+			}
+			
+			//btMoverAberta
+			btMoverAberta = document.getElementById('btMoverAberta');
+			
+			btMoverAberta.onclick = function(){
+				janela.moveTo('100','100');
+			}
+			
+			//btRolar
+			btMoverAberta = document.getElementById('btRolar');
+			
+			btRolar.onclick = function(){
+				window.scrollBy(0, 250);
+			}
+			
+			//btPrint
+			btPrint = document.getElementById('btPrint');
+			
+			btPrint.onclick = function(){
+				window.print();
+			}
+			//btEnderPag
+			btEnderPag = document.getElementById('btEnderPag');
+			
+			btEnderPag.onclick = function(){
+				log(window.location.href);
+			}
+			//btRecarrega
+			btRecarrega = document.getElementById('btRecarrega');
+			
+			btRecarrega.onclick = function(){
+				window.location.reload();
+			}
+			
+			//btVoltar
+			btVoltar = document.getElementById('btVoltar');
+			
+			btVoltar.onclick = function(){
+				window.history.back();
+			}
+			//btAvacar
+			btAvacar = document.getElementById('btAvacar');
+			
+			btAvacar.onclick = function(){
+				window.history.back();
+			}
+			
+			//btInfNav
+			btInfNav = document.getElementById('btInfNav');
+			
+			btInfNav.onclick = function(){
+				log(window.navigator.userAgent);
+				log('Cookies: ' + window.navigator.cookieEnabled);
+				log('Java: ' + window.navigator.javaEnabled());
+			}
+		}
+		
+	</script>
+	</head>
+		<body onload="executar();">
+			<button onclick="window.close();">Fechar</button>
+			<button id="btexcluir">Excluir</button>
+			<button id="btAbrir">Abrir</button>
+			<button id="btFecharAberta">Fechar Janela Aberta</button>
+			<button id="btRedimencAberta">Redimenciona Janela Aberta</button>
+			<button id="btMoverAberta">Mover Janela Aberta</button>
+			<button id="btRolar">Rola Janela</button>
+			<button id="btPrint">Imprimir Janela</button>
+			<button id="btEnderPag">Endereço da Página</button>
+			<button id="btRecarrega">Recarega da Página</button>
+			<button id="btVoltar">Voltar da Página</button>
+			<button id="btAvacar">Avançar da Página</button>
+			<button id="btInfNav">Informações Navegador</button>
+			<div id="log">
+			</div>
+			
+		</body>
+	<script>
+		garregaEventos();
+	</script>
+		
+</html>

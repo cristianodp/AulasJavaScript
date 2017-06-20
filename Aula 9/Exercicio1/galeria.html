@@ -1,0 +1,88 @@
+<style media="screen">
+  .produto {
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 15px;
+    position: relative;
+  }
+  .produto .descricao, .produto .foto {
+    font-size: 10px;
+    font-weight: normal;
+    background-color: #666666;
+    color: white;
+    position: absolute;
+    top: 30px;
+    height: 100px;
+    width: 150px;
+    padding: 5px;
+  }
+  .produto .preco{
+    position: absolute;
+    top:130px;
+    color:red;
+    font-size:10px;
+  }
+</style>
+<h2>Galeria de Produtos</h2>
+<div id="carrinho">
+  <h3>Meu Carrinho de Compras</h3>
+  <ul id="itens">
+
+  </ul>
+</div>
+<div id="produtos">
+</div>
+<script type="text/javascript">
+  $(function(){
+
+    //$.getJSON('listarProdutos.json'
+    $.getJSON('http://dkeller.comuf.com/cursojs/listarProdutos.php'
+      , function(data){
+        for(i=0;i<data.length;i++){
+          $('#produtos').append('<div class="produto"> \
+            <h5>' + data[i].nome + ' <a href="#"  data-id="'+ data[i].id+'" data-nome="'+ data[i].nome+'">+</a> </h5> \
+            <div class="foto" data-url="' + data[i].url_foto + '"> \
+            </div> \
+            <div class="descricao" style="display: none;"> \
+              ' + data[i].descricao + ' \
+            </div> \
+            <div class="preco">'+data[i].preco+'</div>\
+          </div>');
+        }
+
+			// add efeitos
+			$('div.produto .foto').mouseover(function(){
+	      $(this).hide();
+	      $(this).next().fadeIn('slow');
+	    });
+
+	    $('div.produto .descricao').mouseout(function(){
+	      $(this).hide();
+	      $(this).prev().fadeIn('slow');
+	    });
+
+	    $('div.produto .foto').each(function(){
+	      $(this).css(
+	        {
+	          'background-image': 'url("' + $(this).data('url') +'")',
+	          'background-position': 'center',
+	          'background-repeat': 'no-repeat',
+	          'background-size': '150px'
+	        }
+	      );
+	    });
+
+      $("div.produto h5 a").click(function(){
+
+        $("#carrinho").append('<li>'+$(this).data("nome")+'</li>');
+
+      });
+
+
+    });
+
+
+
+  });
+</script>

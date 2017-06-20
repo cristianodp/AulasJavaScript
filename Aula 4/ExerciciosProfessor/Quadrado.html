@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<script>
+		function calcular(){
+			
+			var a = document.getElementById('altura').value;
+			var l = document.getElementById('largura').value;
+			
+			var quadrado = {
+				altura: a,
+				largura: l,
+				area: function(){
+					return this.altura * this.largura;
+				}
+			};
+			
+			alert(quadrado.area());
+			
+		}
+		</script>
+	</head>
+	<body>
+		Altura:
+		<input type="number" id="altura" />
+		Largura:
+		<input type="number" id="largura" />
+		<button onclick="calcular()">Calcular</button>
+	</body>
+</html>

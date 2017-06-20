@@ -1,0 +1,69 @@
+<html>
+	<head>
+	<meta charset="UTF-8"></meta>
+	<script>
+	function iniciar(){
+		var minuto = document.getElementById('minuto');
+		var segundo = document.getElementById('segundo');
+		var ok = document.getElementById('ok');
+		var restante = document.getElementById('restante');
+		
+		minuto.disabled = 'disabled';
+		segundo.disabled = 'disabled';
+		ok.disabled = 'disabled';
+		
+		if(minuto.value.trim() == ''){
+			minuto.value = 0;
+		}
+		
+		var tempoAtual = (parseInt(minuto.value) * 60 )
+		tempoAtual += parseInt(segundo.value);
+		var tempoTotal = tempoAtual;
+		var temporizador = setInterval(function (){
+			
+			restante.innerHTML = Math.floor(tempoAtual / 60) + ':' + 
+			(tempoAtual % 60);
+			
+			restante.style.width = ((tempoAtual / tempoTotal)*100) + '%';
+			
+			tempoAtual--;
+			
+			if(tempoAtual < 0){
+				
+				window.clearInterval(temporizador);
+				
+				restante.style.backgroundColor = 'red';
+				restante.style.width = '100%';
+				
+				window.setInterval(function(){
+					if(restante.style.backgroundColor == 'white'){
+						restante.style.backgroundColor = 'red';
+					} else {
+						restante.style.backgroundColor = 'white';
+					}
+				}, 500);
+				
+			}
+			
+		}, 1000);
+	}
+	</script>
+	<style>
+		#restante {
+			background-color: blue;
+			width: 0%;
+			line-height: 30px;
+			font-size: 24px;
+			color: white;
+		}
+	</style>
+	</head>
+	<body>
+		<input type="number" id="minuto" />
+		<input type="number" id="segundo" />
+		<button id="ok" onclick="iniciar()">
+			OK
+		</button>
+		<div id="restante"></div>
+	</body>
+</html>

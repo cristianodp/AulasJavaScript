@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2015 by cristianodp (http://jsbin.com/dixafo/4/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+#ponto{
+  width:50px;
+  height:50px;
+  background-color:darkblue;
+}
+</style>
+</head>
+<body>
+  <div id="ponto"></div>
+
+<script id="jsbin-javascript">
+$(document).ready(function(){
+  
+ $(window).keypress(function(evento){
+    switch(evento.keyCode){
+      case 119:
+        $('#ponto').attr('top+=1;');
+        break;
+      case 115:
+        $('#ponto').attr('top-=1;');
+        break;
+      case 100:
+        $('#ponto').click();
+        break;
+      case 97:
+        $('#ponto').click();
+        break;
+    }
+    
+  });
+  
+});
+
+
+
+  
+
+</script>
+</body>
+</html>

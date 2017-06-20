@@ -1,0 +1,129 @@
+<h2>Lista de Produtos</h2>
+<form>
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" class="form-control" id="nome">
+  </div>
+	<button type="button" class="btn btn-success" id="novo">Novo</button>
+	<button type="button" class="btn btn-danger" id="excluir">Excluir</button>
+  <button type="button" class="btn btn-primary" id="pesquisar">Pesquisar</button>
+  <button type="button" class="btn btn-default" id="limpar">Limpar</button>
+</form>
+<table id="tabela" class="table"
+  data-inicio="0" data-quantidade="10">
+  <thead>
+    <th>Id</th>
+    <th>Nome</th>
+    <th>Preço</th>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-default"
+  id="anterior"><</button>
+<button type="button" class="btn btn-default"
+  id="proximo">></button>
+<script type="text/javascript">
+  $(function(){
+
+    function carregar(){
+      $('#tabela tbody').empty();
+      // Busca os produtos
+      $.getJSON(
+        'http://php-diegokeller.rhcloud.com/listarProdutos.php',
+        {
+          inicio: $('#tabela').data('inicio'),
+          quantidade: $('#tabela').data('quantidade'),
+          nome: $('#nome').val()
+        },
+        function(data){
+
+          // Percorre os registros
+          for(i=0;i<data.length;i++){
+            $('#tabela tbody').append('<tr> \
+                <td> <a href="#">' + data[i].id + '</a></td> \
+                <td>' + data[i].nome + '</td> \
+                <td>' + data[i].preco + '</td> \
+              </tr>');
+          }
+
+          // Habilita/Desabilita paginação
+          var inicio = parseInt($('#tabela').data('inicio'));
+          $('#anterior').prop('disabled', inicio <= 0);
+          var quantidade = parseInt($('#tabela').data('quantidade'));
+          $('#proximo').prop('disabled', data.length < quantidade);
+
+					// seleciona linha e destaca com css
+					$("#tabela tbody tr").click(function(){
+						$(this).toggleClass('info');
+					});
+
+					$("#tabela tbody tr td a").click(function(){
+						  var id = $(this).text();
+							alert(id);
+							$('#conteudo').load('editarProduto.html',function(){
+								carregarProduto(id);
+							});
+					});
+      });
+    }
+
+      // Paginação
+      $('#proximo').click(function(){
+        var inicio = $('#tabela').data('inicio');
+        var quantidade = $('#tabela').data('quantidade');
+        inicio += quantidade;
+        $('#tabela').data('inicio', inicio);
+        carregar();
+      });
+      $('#anterior').click(function(){
+        var inicio = $('#tabela').data('inicio');
+        var quantidade = $('#tabela').data('quantidade');
+        inicio -= quantidade;
+        $('#tabela').data('inicio', inicio);
+        carregar();
+      });
+
+      // Pesquisar
+      $('#pesquisar').click(function(){
+        $('#tabela').data('inicio', '0');
+        carregar();
+      });
+      // Limpar
+      $('#limpar').click(function(){
+        $('#tabela').data('inicio', '0');
+        $('#nome').val('');
+        carregar();
+      });
+
+      // Novo
+      $('#novo').click(function(){
+        $('#conteudo').load('editarProduto.html');
+      });
+      // Excluir
+			$("#excluir").click(function(){
+
+				var selecionados = $("#tabela tbody tr.info td:first-child");
+				if(!confirm("Tem certeza que deseja excluir "+selecionados.length+" produto(s)?")){
+					return;
+				}
+
+				// Linhas selecionadas, primeiro TD (id)
+        $(selecionados).each(function(){
+          var id = $(this).text();
+          $.post('http://php-diegokeller.rhcloud.com/excluirProduto.php',
+          {
+            id: id
+          }, function(){
+            carregar();
+          });
+        });
+			});
+
+      // Carregamento inicial
+      carregar();
+
+  });
+</script>

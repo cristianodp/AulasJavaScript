@@ -1,0 +1,93 @@
+<html>
+	<head>
+	<meta charset="UTF-8"></meta>
+	<script>
+	
+	var janela = null;
+	
+	function log(texto){
+		var log = document.getElementById('log');
+		texto += '<hr />' + log.innerHTML;
+		log.innerHTML = texto;
+	}
+	
+	function excluir(){
+		var resposta = window.confirm(
+			'Tem certeza que quer excluir?');
+		log('Usuário respondeu: ' + resposta);
+		if(resposta){
+			log('Excluído com sucesso');
+		}
+	}
+	
+	function abrir(){
+		var url = 'http://www.google.com.br';
+		var opcoes = 'width=400px,height=400px,';
+		janela = window.open(url, '', opcoes);
+	}
+	
+	function fechar(){
+		janela.close();
+	}
+	
+	function redimensionar(){
+		janela.resizeTo('350', '350');
+	}
+	
+	function mover(){
+		janela.moveTo('200', '200');
+	}
+	
+	function rolar(){
+		window.scrollBy(0, 250);
+	}
+	
+	function imprimir(){
+		window.print();
+	}
+	
+	function executar(){
+		log(window);
+		log(window.document);
+		log('Largura: ' + window.innerWidth);
+		log('Altura: ' + window.innerHeight);
+		window.onresize = function(){
+			log('Largura: ' + window.innerWidth);
+			log('Altura: ' + window.innerHeight);
+		};
+		log('Tela: ' + window.screen.width + 
+			' | ' + window.screen.height);
+			
+		
+	}
+	</script>
+	</head>
+	<body onload="executar();">
+	
+	<button onclick="fechar();">Fechar</button>
+	
+	<button onclick="excluir();">Excluir</button>
+	
+	<button onclick="abrir();">Abrir</button>
+	
+	<button onclick="redimensionar();">
+		Redimensionar
+	</button>
+	
+	<button onclick="mover();">
+		Mover
+	</button>
+	
+	<button onclick="rolar();">
+		Rolar
+	</button>
+	
+	<button onclick="imprimir();">
+		Imprimir
+	</button>
+	
+	<div id="log">	
+	</div>
+	
+	</body>
+</html>

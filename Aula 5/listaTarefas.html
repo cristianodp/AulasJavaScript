@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <script>
+
+	function adicionar(){
+	  
+	  // Pega a tarefa nova
+	  var tarefa = document.getElementById('tarefa');
+	  
+	  // Pega a lista de tarefas
+	  var lista = document.getElementById('lista');
+	  
+	  // Cria um nodo novo
+	  var novaTarefa = document.createElement('li');
+	  novaTarefa.innerHTML = tarefa.value;
+	  
+	  // Cria um check
+	  var check = document.createElement('input');
+      check.type = 'checkbox';
+      novaTarefa.appendChild(check);
+	  
+	  // Adiciona na lista
+	  lista.appendChild(novaTarefa);
+	  
+	  // Limpa o campo
+	  tarefa.value = '';
+	  
+	  // Dá o foco
+	  tarefa.focus();
+	  
+	}
+
+	function excluirUltima(){
+	  
+	  // Pega a lista de tarefas
+	  var lista = document.getElementById('lista');
+	  
+	  // Remove o último filho
+	  lista.removeChild(lista.lastChild);
+	  
+    }
+	/*
+	function excluirSelecionados2()
+    {
+	  // Pega a lista de tarefas
+	  var lista = document.getElementById('lista');
+	  
+	  // pegas os inputs
+	  var checks = lista.getElementTagName('input');
+	  
+	  
+	  var remover = [];
+	  for (1 = 0; i < checks.length; i++ )
+	  {
+		if (checks[i].checked)
+		{
+			remover.push(checks[i].parentNode);
+		}
+	  }
+	  
+	  
+	  for (1 = 0; i < remover.length; i++ )
+	  {
+		// Remove selecionado
+		lista.removeChild(remover[i]);
+		
+	  }
+	
+	}
+	*/
+	function excluirSelecionados(){
+	  
+	  // Pega a lista de tarefas
+	  var lista = document.getElementById('lista');
+	  
+	  // Pega os inputs da lista
+	  var checks = lista.getElementsByTagName('input');
+	  
+	  // Percorre os elementos
+	  var remover = [];
+	  for(i = 0; i < checks.length; i++){
+		 
+		// Verifica se está selecionado
+		if (checks[i].checked) {
+		  
+		  // Remove o pai da lista
+		  remover.push(checks[i].parentNode); 
+		  
+		}
+		
+	  }
+  
+	  // Remove os elementos
+	  for(i = 0; i < remover.length; i++){
+		lista.removeChild(remover[i]);
+	  }
+	}
+		
+	
+   
+	
+  </script>
+  <meta charset="utf-8">
+  <title>Lista de Tarefas</title>
+</head>
+<body>
+  
+  <h1>Lista de Tarefas</h1>
+  
+  <h2>Incluir tarefa</h2>
+  Tarefa:
+  <input type="text" id="tarefa" />
+  <input type="button" onclick="adicionar()" value="OK">
+  
+  <input type="button" onclick="excluirUltima()" value="Excluir">
+  <input type="button" onclick="excluirSelecionados()" value="Excluir Selecionado">
+  
+  <hr />
+  
+  <h2>Lista de Tarefas</h2>
+  <ol id="lista">    
+  </ol>
+  
+</body>
+</html>

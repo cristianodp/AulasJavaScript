@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Acompanhamento de Pedidos</title>
+    <meta charset="UTF-8">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <!-- Jquery -->
+  	<script src="jquery-2.1.4.min.js"></script>
+  </head>
+  <body>
+    <h1>Acompanhamento de Pedidos</h1>
+    <div id="pedidos">
+
+    </div>
+    <script type="text/javascript">
+      $(function(){
+
+        //atualiza de tempos em tempos
+        setInterval(function(){
+          // Chama o serviço
+          $.getJSON('http://php-diegokeller.rhcloud.com/listarPedidos.php',
+          function(data){
+            var total = 0;
+            for(i=0;i<data.length;i++){
+              total += parseFloat(data[i].total);
+            }
+            $("#pedidos").html(data.length + ' Pedidos totalizando R$ '+total)
+
+          });
+        }, 1000);
+		$(".canvasjs-chart-credit").html("");
+      });
+    </script>
+  </body>
+</html>

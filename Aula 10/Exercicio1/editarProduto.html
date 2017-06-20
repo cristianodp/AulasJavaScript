@@ -1,0 +1,69 @@
+<h2>Cadastro de Produto</h2>
+
+<form>
+  <div class="form-group">
+    <label for="id">Id</label>
+    <input type="text" class="form-control" id="id">
+  </div>
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" class="form-control" id="nome">
+  </div>
+  <div class="form-group">
+    <label for="urlFoto">URL Foto</label>
+    <input type="text" class="form-control" id="urlFoto">
+  </div>
+  <div class="form-group">
+    <label for="preco">Preço</label>
+    <input type="text" class="form-control" id="preco">
+  </div>
+  <div class="form-group">
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" class="form-control" rows="8" cols="40"></textarea>
+  </div>
+  <button type="button" class="btn btn-primary" id="salvar">Salvar</button>
+  <button type="button" class="btn btn-default" id="voltar">Voltar</button>
+</form>
+<script type="text/javascript">
+
+  function carregarProduto(id){
+  $.getJSON('http://php-diegokeller.rhcloud.com/buscarProduto.php',
+  {
+    id: id
+  }, function(data){
+    $('#id').val(data.id);
+    $('#nome').val(data.nome);
+    $('#urlFoto').val(data.url_foto);
+    $('#preco').val(data.preco);
+    $('#descricao').val(data.descricao);
+  });
+  }
+
+  $(function(){
+
+    // Salvar
+    $('#salvar').click(function(){
+      var url = 'http://php-diegokeller.rhcloud.com/inserirProduto.php';
+      if($('#id').val()){
+        url = 'http://php-diegokeller.rhcloud.com/atualizarProduto.php';
+      }
+      $.post(url, {
+        id: $('#id').val(),
+        nome: $('#nome').val(),
+        urlFoto: $('#urlFoto').val(),
+        preco: $('#preco').val(),
+        descricao: $('#descricao').val()
+      }, function(data){
+        if(data !== ''){
+          alert(data);
+        } else {
+          $('#voltar').click();
+        }
+      });
+    });
+    // Voltar
+    $('#voltar').click(function(){
+      $('#conteudo').load('listaProdutos.html');
+    });
+  });
+</script>

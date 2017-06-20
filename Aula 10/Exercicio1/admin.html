@@ -1,0 +1,58 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>List States</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="bootstrap.min.css">
+
+	<!-- Jquery -->
+	<script src="jquery-2.1.4.min.js"></script>
+
+</head>
+	<body>
+		<div id="aguarde" style="display: none; text-align: center;">
+      <h1>Aguarde....</h1>
+    </div>
+		<div id="principal">
+			<h1>Administração da Loja</h1>
+
+			<table id="tabela" class="table"
+			  data-inicio="0" data-quantidade="10">
+			  <thead>
+				<th>ID</th>
+				<th>ST</th>
+				<th>States</th>
+			  </thead>
+			  <tbody>
+
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	  $(function(){
+
+		function carregar(){
+		 
+		  // Busca estados 
+		  $.getJSON(
+			'http://192.168.6.133:8080/TesteWebservice/getStates',
+			{
+			  
+			},
+			function(data){
+
+			  // Percorre os registros
+			  for(i=0;i<data.length;i++){
+				$('#tabela tbody').append('<tr> \
+					<td> <a href="#">' + data[i].id + '</a></td> \
+					<td>' + data[i].st + '</td> \
+					<td>' + data[i].states + '</td> \
+				  </tr>');
+			  }
+
+		  });
+		}
+
+	  });
+	</script>
+</html>

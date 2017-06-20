@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML Tutorial</title>    
+		
+		<link rel="stylesheet" type="text/css" href="exemplo.css">
+		
+    </head>    
+    <body>
+        
+		<header id="cabecalho">
+            TrinoPolo - Curso de JS
+        </header >
+        <nav>
+            <ol>
+                <li>
+					<a 	href="#" 
+						onclick="alteraTitulo(this.innerHTML)">
+						HTML 5<a/> 
+				</li>
+                <li><a href="#" onclick="alteraTitulo(this.innerHTML)">JavaScript<a/> </li>
+                <li><a href="#" onclick="alteraTitulo(this.innerHTML)">CSS<a/> </li>
+                <li><a href="#" onclick="alteraTitulo(this.innerHTML)">TrinoPolo - Curso de JS<a/> </li>
+
+            </ol>
+        </nav>
+        
+        <main>
+            <h1>HTML 5</h1>
+            
+			<article>
+                <input type="text" id="valor1">
+				+
+				<input type="text" id="valor2">
+				<input type="button" onclick="calcular()">
+				<p id="resuldado"><p>
+				
+			    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum magna nec leo lacinia aliquam. Aliquam ultrices vestibulum faucibus. Vestibulum feugiat diam suscipit, pellentesque massa vel, consectetur nisl. Sed pulvinar a ex et tristique. Curabitur eu nisl efficitur elit aliquet dapibus sit amet sed libero. Ut lacinia semper maximus. Nulla sollicitudin sodales tortor non consequat. Sed id erat condimentum, egestas ipsum ac, faucibus diam. Ut ac vehicula odio. Vestibulum interdum dui sit amet bibendum pulvinar.
+                </p>
+        
+                <p>
+                    Aliquam erat volutpat. Donec laoreet, eros in vulputate interdum, diam augue tristique neque, vitae viverra sem elit eget quam. Praesent eget leo urna. Suspendisse dapibus mi libero, eu interdum neque commodo a. Vestibulum imperdiet et ipsum eu rhoncus. Suspendisse sed convallis neque, quis gravida purus. Phasellus rhoncus elit sit amet auctor hendrerit. Etiam sed condimentum felis. Donec ut dolor consectetur, aliquet elit scelerisque, efficitur massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque mi mi, molestie sed commodo a, convallis et diam. Aliquam eu suscipit sapien. Sed condimentum volutpat ex, non fermentum lectus euismod sit amet.
+                </p>
+            </article>
+        </main>    
+        <footer>
+			FTEC - CAXIAS DO SUL -2015
+		</footer>
+        
+    </body>
+    <script src="comandos.js"></script>
+
+</html>   

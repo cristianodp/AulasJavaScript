@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<script>
+		function ordenar(){			
+			var numeros = document.getElementById('numeros');
+			var vetor = numeros.value.split(',');
+			//vetor.sort();
+			for(i = 0; i < vetor.length; i++){
+				for(j = 0; j < vetor.length; j++){
+					if(parseInt(vetor[i]) < parseInt(vetor[j])){
+					 var menor = vetor[i];
+					 vetor[i] = vetor[j];
+					 vetor[j] = menor;
+					}
+				}
+			}
+			numeros.value = vetor.join(',');
+		}
+		</script>
+	</head>
+	<body>
+		Números:
+		<input type="text" id="numeros" />
+		<button onclick="ordenar()">OK</button>
+	</body>
+</html>

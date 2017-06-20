@@ -1,0 +1,19 @@
+<html>
+	<head>
+	<meta charset="UTF-8"></meta>
+	<script>
+	var relogio = window.setInterval(function(){
+		document.getElementById('hora').innerHTML = 
+			new Date().toString();
+	}, 1000);
+	
+	function parar(){
+		window.clearInterval(relogio);
+	}
+	</script>
+	</head>
+	<body>
+		<button onclick="parar()">Parar</button>
+		<span id="hora"></span>
+	</body>
+</html>

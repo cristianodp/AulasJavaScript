@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta name="description" content="Contatos">
+  <meta charset="UTF-8">
+  
+  <!------------------------------------>
+  <!--Referências a recursos externos-->
+  <!------------------------------------>
+  
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="bootstrap.min.css">
+  
+  <!--Icones Font Awesome-->
+  <link rel="stylesheet" href="font-awesome.min.css">
+  
+</head>
+<body onload="">
+  
+  <!------------------------------------>
+  <!--Título-->
+  <!------------------------------------>
+  <h1>AGENDA DE CONTATOS</h1>
+  
+  <!------------------------------------>
+  <!--Listagem-->
+  <!------------------------------------>  
+  <fieldset id="listagem">
+    
+    <!--Título-->
+    <legend>Lista de Contatos</legend>
+    
+    <!--Formulário de Pesquisa-->
+    <p>
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="pesquisa_nome">Nome</label>
+          <input class="form-control" type="text" id="pesquisa_nome">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="pesquisa_favorito" class="">Apenas favoritos
+          </label>
+        </div>      
+      </div>
+    </p>    
+  
+    <!--Botões de Pesquisa-->
+    <p>      
+      <button class="btn btn-default" onclick="">Pesquisar</button>
+      <button class="btn btn-primary" onclick="">Novo</button>  
+    </p>
+  
+    <!--Listagem de Registros-->
+    <table class="table table-bordered" id="tabela">
+    </table>
+  </fieldset>
+  
+  <!------------------------------------>
+  <!--Edição-->
+  <!------------------------------------>  
+  <div id="edicao" style="display: none">  
+    <fieldset>
+      
+      <!--Título-->
+      <legend>Cadastro de Contato</legend>
+      
+      <!--Formulário-->
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input class="form-control" type="text" id="nome">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="favorito" class="">Favorito
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone:</label>
+          <input class="form-control" type="text" id="telefone">
+        </div>
+        
+        <!--Botões-->
+        <button class="btn btn-primary" onclick="">Salvar</button>
+        <button class="btn btn-default" onclick="">Voltar</button>
+      </div>
+    </fieldset> 
+  </div>
+  
+</body>
+</html>

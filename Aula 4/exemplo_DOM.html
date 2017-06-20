@@ -1,0 +1,41 @@
+<html>
+	<head>
+	<meta charset="UTF-8"></meta>
+	<script>
+		function executar(){
+			var artigos = document.getElementsByTagName('article');
+			for(i = 0; i < artigos.length; i++){
+				artigos[i].style.color = 'blue';
+			}
+			
+			var titulos   = document.getElementsByTagName('article');
+			var index = document.getElementById('index');
+			for(i = 0; i < titulos.length; i++){
+				
+				index.innerHTML += titulos[i].innerHTML + '<br />';
+			
+			}
+			
+		}
+	</script>
+	</head>
+	<body onload="executar()">
+		<section id="index"></section>
+		
+			<section id="artigos">
+				<h1>Artigo 1</h1>
+				<article>
+					Texto texto texto 1
+				</article>
+				<h1>Artigo 2</h1>
+				<article>
+					Texto texto texto 2
+				</article>
+				<h1>Artigo 3</h1>
+				<article>
+					Texto texto texto 3
+				</article>
+			</section>
+		
+	</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2015 by cristianodp (http://jsbin.com/gudici/36/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>Teste jQuery</title>
+<style id="jsbin-css">
+.vermelho{
+  color: red;
+}
+
+div p {
+  color: blue;
+}
+
+.verde {
+  color: green;
+}
+</style>
+</head>
+<body>
+
+  <article>
+    <p versao="1" >Parágrafo 1</p>
+    <p class="vermelho">Parágrafo 2</p>
+    <p>Parágrafo 3</p>
+    <p class="vermelho">Parágrafo 4</p>
+  </article>
+  
+  <div>
+    <p versao="2">Paragrafo fora do ARTICLE</p>
+  </div>
+  
+  <div>
+    <p>Paragrafo fora do ARTICLE</p>
+  </div>
+  
+  <div>
+    <p>Paragrafo fora do ARTICLE</p>
+  </div>
+  
+  <input type="text" id="nome" value="FTEC">
+  <button id="ok">OK</button>
+  <button id="salvar">salvar</button>
+  <button id="remover">remover</button>
+  <button id="limpar">limpar</button>
+  <button id="verde">verde</button>
+  <ol>
+    <li>Item 1</li>
+    <li class="vermelho">Item 2</li>
+    <li>Item 3</li>
+    <li class="vermelho">Item 4</li>
+    <li>Item 5</li>
+  </ol>
+  
+  <ol>
+    <li categoria="urgente">Item a 1</li>
+    <li class="vermelho">a Item 2</li>
+    <li categoria="urgente">Item a 3</li>
+    <li class="vermelho">a Item 4</li>
+    <li categoria="urgente">Item a 5</li>
+  </ol>
+  
+<script id="jsbin-javascript">
+$(function(){
+  // Pela tag HTML
+ // var paragrafos = $('p');
+  //alert(paragrafos.length);
+  //alert(typeof paragrafos);
+  
+  // Pega pelo ID
+  //var campo = $('#nome');
+  //alert(campo.val());
+  
+  // Pela pela classe CSS
+  //var itens = $('.vermelho');
+  //alert(itens.length);
+  
+  //alert($('*').length);
+  
+  // Apenas os LI com classe css VERMELHO
+  //alert($('li.vermelho').length);
+  
+  //pega por arvore como no css
+  //alert(jQuery('div p').length);
+  
+  // pega o primeiro P da pagina
+  //a funcção html é o mesmo que o innerHTML
+  //alert($('p:first').html());
+  //alert($('ol li:first').html());
+  
+  // pega o todos os elementos com o atributo versão
+   //alert($('[versao]').length);
+  
+// testa o valor da categoria  alert($("li[categoria='urgente']").length);
+  //alert($("li[categoria!='urgente']").length);
+  
+ // Pega todos li ímpares
+  //$('ol li:odd').html('PAR');
+  //$('ol li:even').html('IMPAR');
+  
+  // programa evendo click do bt ok
+  $('#ok').click(function(){
+    $('#nome').val('trinoPolo!!!');
+  });
+  
+
+  // transforma para maiusculas ao digitar
+  $('#nome').keyup(function(){
+    var texto = $(this).val();
+    texto = texto.toUpperCase();
+    $(this).val(texto);
+  });
+
+  $('li').hover(
+    function(){
+      var texto = $(this).html();
+      texto = texto.toUpperCase();
+      $(this).html(texto);
+    },
+    function(){
+      var texto = $(this).html();
+      texto = texto.toLowerCase();
+      $(this).html(texto);
+    }
+  );
+  
+  // Alert ao cliar em salvar
+  $('#salvar').on('click', function(){    
+    $('p').prepend('Clique');    
+  });
+  
+  // Ao passar o mouse sobre os P trocar a cor
+  $('p').on({
+    mouseenter: function(){
+      $(this).css('color', 'red');
+    },
+    mouseleave: function(){
+      $(this).css('color','black');
+    },
+    click: function(){
+      alert($(this).html());
+    }
+  });
+  
+  
+  $('#remover').click(function(){
+    $('ol li:first').remove();
+  });
+  
+  
+  $('#limpar').click(function(){
+    $('#nome').val('');
+    $('ol li:first').empty();
+  });
+  
+  
+  $('#verde').click(function(){
+    $('p').toggleClass('verde');
+  });
+  
+  
+  
+});
+</script>
+</body>
+</html>

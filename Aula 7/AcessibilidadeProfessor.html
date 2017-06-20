@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2015 by diegokeller (http://jsbin.com/jodavo/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>Acessibilidade</title>
+<style id="jsbin-css">
+body.contraste {
+  background-color: black;
+  color: white;
+}
+
+body.contraste h1 {
+  color: yellow;
+  
+}
+
+body.contraste article header {
+  color: blue;
+  font-style: italic;
+}
+</style>
+</head>
+<body class="contraste">
+  
+  <section>
+    <a href="#" id="contraste">[Contraste]</a>
+    <a href="#" id="mais-fonte">[+A]</a>
+    <a href="#" id="menos-fonte">[-A]</a>
+  </section>
+  
+  <article>
+    <h1>Governo de Atenas entregou propostas dentro do prazo</h1>
+    <header>O Governo grego entregou ao Eurogrupo, ao fim da tarde de hoje, dentro do prazo estipulado, as suas propostas de reformas com vista a obter um terceiro programa de resgate financeiro e permanecer no euro.</header>
+    <p>
+      O anúncio de que as propostas de reformas prometidas pelo executivo de Atenas foram entregues, dentro do prazo definido pelos líderes da zona euro, as 11:00 de hoje, foi feito pelo porta-voz de Jeroen Dijsselbloem, líder do Eurogrupo.
+    </p>
+    <p>
+  "As novas propostas gregas foram recebidas pelo presidente do Eurogrupo, Jeroen Dijsselbloem, é importante que as instituições [credores] o tenham em conta na sua avaliação", indicou o porta-voz, Michel Reijns, na sua conta na rede social Twitter.
+</p>
+  </article>
+
+<script id="jsbin-javascript">
+$(function(){
+  
+  $('#contraste').click(function(){
+  
+    $('body').toggleClass('contraste');
+  
+  });
+  
+  $('#mais-fonte').click(function(){
+  
+    var tamanho = $('body').css('font-size');
+    tamanho = parseInt(tamanho);
+    tamanho++;
+    $('body').css('font-size', tamanho + 'px');
+  
+  });
+
+  $('#menos-fonte').click(function(){
+  
+    var tamanho = $('body').css('font-size');
+    tamanho = parseInt(tamanho);
+    tamanho--;
+    $('body').css('font-size', tamanho + 'px');
+  
+  });
+  
+  $(window).keypress(function(evento){
+    
+    switch(evento.keyCode){
+      case 43:
+        $('#mais-fonte').click();
+        break;
+      case 45:
+        $('#menos-fonte').click();
+        break;
+      case 99:
+        $('#contraste').click();
+        break;
+    }
+    
+  });
+  
+});
+</script>
+</body>
+</html>
+
+

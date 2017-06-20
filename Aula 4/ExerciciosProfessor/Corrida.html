@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<script>
+		var vez = 1;
+		function jogar(){
+			
+			var jogador = document.getElementById('jogador' + vez);
+			
+			var dado = parseInt(Math.random() * 7);
+			document.getElementById('dado').innerHTML = jogador.id + ' tirou ' + dado;
+			
+			jogador.innerHTML = parseInt(jogador.innerHTML) + dado;
+			jogador.style.width = parseInt(jogador.innerHTML) * 15 + 'px';
+			
+			if (parseInt(jogador.innerHTML) >= 50) {
+				alert(jogador.id + ' ganhou!');
+			}
+			
+			if (vez == 1) {
+				vez++;
+			} else {
+				vez--;
+			}
+		}
+		</script>
+	</head>
+	<body>
+		DADO:
+		<div id="dado">
+			 
+		</div>
+		Jogador 1:
+		<div id="jogador1" style="background-color: red; width: 10px;">
+			0
+		</div>
+		Jogador 2:
+		<div id="jogador2" style="background-color: blue; width: 10px;">
+			0
+		</div>
+		<button id="botao_jogar" onclick="alert(this.innerHTML)">Jogar !!!!</button>
+	</body>
+</html>

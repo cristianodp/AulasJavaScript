@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css_exemplo.css">
+		
+		<script>
+			function posiciona(){
+				var q = document.getElementById('quadrado');
+				q.style.top = parseInt(Math.random() * 500) + 'px';
+				q.style.left = parseInt(Math.random() * 500) + 'px';
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div id="quadrado" onmouseover="posiciona()">
+    
+		</div>
+	</body>
+	
+</html>

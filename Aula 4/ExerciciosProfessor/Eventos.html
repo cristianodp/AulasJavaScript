@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<script>
+		function divClick(div){
+			alert(div.innerHTML);
+		}
+		</script>
+	</head>
+	<body onload="alert('Página carregada')">
+		<div id="div1" onmousedown="alert(1);" onmouseup="alert(2);" onclick="alert(3);">TESTE</div>
+		<input onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'blue';" value="ssadsds" type="text" id="texto1" />
+	</body>
+</html>
